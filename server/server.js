@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const PORT = 3000;
+const path = require('path');
 
 
 // FLOW TEST TO SEE REQUESTS IN TERMINAL
@@ -14,7 +15,10 @@ app.use((req, res, next) => {
 });
 
 
-app.get('/', (req, res) => res.send('Hello World'));
+// sends a GET request to retreive the bundle.js
+app.use('/build', (req, res) => res.sendFile((path.resolve(__dirname, '../build/bundle.js'))));
+
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')))
 
 
 
