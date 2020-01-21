@@ -1,0 +1,35 @@
+{
+  "name": "buckster",
+  "version": "1.0.0",
+  "description": "\"Will be able to add bucket list items and see friends bucket list items\"",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kelvinscuesta/buckster.git"
+  },
+  "keywords": [
+    "buckets"
+  ],
+  "author": "Kelvin Cuesta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kelvinscuesta/buckster/issues"
+  },
+  "homepage": "https://github.com/kelvinscuesta/buckster#readme",
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react-hooks": "^1.7.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^16.12.0"
+  }
+}
