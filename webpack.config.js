@@ -1,6 +1,13 @@
 const path = require('path');
 
 module.exports = {
+
+  devServer: {
+
+    publicPath: '/build/',
+    // add proxy later
+  },
+
   entry: './client/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -19,10 +26,13 @@ module.exports = {
             presets: ['@babel/preset-env', '@babel/preset-react'],
           }
         }
+      },
+      {
+        // rule for css
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       }
     ]
-
   }
-
 
 }

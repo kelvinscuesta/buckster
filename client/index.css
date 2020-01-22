@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;;
+}
+
+#app_container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#app_container h1 {
+  padding: 10px;
+}
+
+.userBucketContainer {
+  border: 1px solid black;
+  
+}
+
+.bucketsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+}
+
+.Bucket_Button {
+  padding: 10px;
+}
+
+li {
+  list-style-type: none;
+}
