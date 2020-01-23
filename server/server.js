@@ -5,8 +5,11 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const bucketUser = require('./bucketUser.js');
+const cors = require('cors');
 mongoose.set('useFindAndModify', false);
 
+// enable cors on all routes
+app.use(cors());
 // parse body as json
 app.use(bodyParser.json());
 
@@ -28,56 +31,21 @@ app.use('/build', (req, res) => res.sendFile((path.resolve(__dirname, '../build/
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')))
 
 
-// create a new user when hitting this endpoint
-// able to initialize a user with empty bucket
-// ideally when I click add user, 
-// will be able to add a new user to the database
-app.post('/:user', (req, res) => {
-  const { user } = req.params;
-
-  bucketUser.create({
-    user: user,
-  })
-    .then(data => {
-      console.log(data);
-      res.send(data);
+// this sends all the user information back to the client
+app.get('/getAllUsers', (req, res) => {
+  bucketUser.find({})
+    .then(data => res.json(data))
+    .catch(err => {
+      console.log(err);
+      res.send(err);
     })
-    .catch(err => console.log(err));
 });
 
-// when a user clicks on add bucket
-// should be able to put a new bucket 
-// to the buckets array
-app.put('/:user/addBucket/:bucketName', (req, res) => {
-  // get req.params
-  console.log('REQ PARAMS', req.params);
+const userRouter = require('./userRouter.js');
+app.use('/:user', userRouter);
 
-  const { user, bucketName } = req.params;
 
-  const bucketToPut = {
-    bucketName: bucketName,
-    bucketItems: [],
-  };
 
-  bucketUser.findOneAndUpdate(
-    { user: user },
-    { $push: { buckets: bucketToPut } }).then(data => res.json(data))
-    .catch(err => res.send(err));
-
-});
-
-// be able to delete a specified bucket from a user
-// now able to remove one matching bucket from the bucket name parameter 
-app.delete('/:user/deleteBucket/:bucketName', (req, res) => {
-
-  const { user, bucketName } = req.params;
-
-  bucketUser.findOneAndUpdate(
-    { user: user },
-    { $pull: { buckets: { bucketName: bucketName } } }
-  )
-    .then(data => res.json(data));
-});
 
 // catch all error handler
 app.use('*', (req, res) => {
@@ -94,3 +62,56 @@ app.use((err, req, res, next) => {
 
 // SERVER RUNNING
 app.listen(PORT, () => console.log(`Server listening on port:${PORT}`));
+
+
+
+// create a new user when hitting this endpoint
+// able to initialize a user with empty bucket
+// ideally when I click add user, 
+// will be able to add a new user to the database
+// app.post('/:user', (req, res) => {
+//   const { user } = req.params;
+
+//   bucketUser.create({
+//     user: user,
+//   })
+//     .then(data => {
+//       console.log(data);
+//       res.send(data);
+//     })
+//     .catch(err => console.log(err));
+// });
+
+// // when a user clicks on add bucket
+// // should be able to put a new bucket 
+// // to the buckets array
+// app.put('/:user/addBucket/:bucketName', (req, res) => {
+//   // get req.params
+//   console.log('REQ PARAMS', req.params);
+
+//   const { user, bucketName } = req.params;
+
+//   const bucketToPut = {
+//     bucketName: bucketName,
+//     bucketItems: [],
+//   };
+
+//   bucketUser.findOneAndUpdate(
+//     { user: user },
+//     { $push: { buckets: bucketToPut } }).then(data => res.json(data))
+//     .catch(err => res.send(err));
+
+// });
+
+// // be able to delete a specified bucket from a user
+// // now able to remove one matching bucket from the bucket name parameter 
+// app.delete('/:user/deleteBucket/:bucketName', (req, res) => {
+
+//   const { user, bucketName } = req.params;
+
+//   bucketUser.findOneAndUpdate(
+//     { user: user },
+//     { $pull: { buckets: { bucketName: bucketName } } }
+//   )
+//     .then(data => res.json(data));
+// });
