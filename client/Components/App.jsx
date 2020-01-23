@@ -10,16 +10,42 @@ class App extends Component {
     this.state = {
       isLoaded: false,
       users: [],
+      newUser: '',
     };
 
     this.addBucketClick = this.addBucketClick.bind(this);
-    this.reRender = this.reRender
+    this.reRender = this.reRender;
+    this.addUserClick = this.addUserClick.bind(this);
+    this.deleteBucketClick = this.deleteBucketClick.bind(this);
+    this.handleNewUser = this.handleNewUser.bind(this);
   }
 
 
-  // handle 
-  addBucketClick(event) {
+  handleNewUser(event) {
+    this.setState({
+      newUser: event.target.value,
+    })
+    console.log( this.state.newUser);
+  }
 
+  addUserClick(event) {
+    // http://localhost:3000/:user
+
+    // POST REQUEST
+    const userName = this.state.newUser;
+
+    console.log('MY NEW USERuserName', userName);
+
+    fetch(`http://localhost:3000/${userName}`, {
+      method: 'POST',
+    })
+    .then(data => this.reRender())
+    .catch(err => console.log(err));
+
+  }
+
+  // handle adding buckets
+  addBucketClick(event) {
     // localhost:3000/:user/addBucket/:bucketName
     // want to somehow set state here
     // send a fetch request here too
@@ -33,12 +59,30 @@ class App extends Component {
     fetch(`http://localhost:3000/${userName}/addBucket/${newBucketName}`, {
       method: 'PUT',
     })
-    .then()
+    .then(data => {
+      this.reRender();
+    })
+    .catch(err => console.log(err));
     
   }
 
-  // have the users state in the app itself
+  deleteBucketClick(event) {
+    // http://localhost:3000/:user/deleteBucket/:bucketName
 
+
+    const userName = event.target.id.slice(1);
+    const bucketToDelete = event.target.value;
+
+    fetch(`http://localhost:3000/${userName}/deleteBucket/${bucketToDelete}`, {
+      method: 'DELETE',
+    })
+    .then(data => {
+      this.reRender();
+    })
+    .catch(err => console.log(err))
+  }
+
+  // able to reRender the app
   reRender() {
     const usersUrl = 'http://localhost:3000/getAllUsers'
     // fetch data and set state
@@ -87,15 +131,15 @@ class App extends Component {
       const fetchedUsers = [];
 
       for (let i = 0; i < users.length; i += 1) {
-        fetchedUsers.push(<UserBucketsContainer currentUser={users[i]} id={users[i]._id} addBucketClick={this.addBucketClick} />);
+        fetchedUsers.push(<UserBucketsContainer currentUser={users[i]} id={users[i]._id} addBucketClick={this.addBucketClick} deleteBucketClick={this.deleteBucketClick} />);
       }
 
       return (
         <div id='app_container'>
           <h1>buckster: the bucketlist for friends!</h1>
           { fetchedUsers }
-          <input type="text" />
-          <button>Create User</button>
+          <input type="text" onChange={this.handleNewUser} />
+          <button onClick={this.addUserClick}>Create User</button>
         </div>
         );
     }

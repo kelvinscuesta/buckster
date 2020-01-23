@@ -44,7 +44,8 @@ class UserBucketsContainer extends Component {
           {bucketsToAdd}
         </div>
         <input type="text" className="addBucketTextBox" onChange={this.handleBucketValueChange} />
-        <button type='button'id={`#${user}`} className="addBucketButton" value={this.state.bucketValue} onClick={this.props.addBucketClick}>Add Bucket</button>
+        <button type='button'id={`#${user}`} className="BucketButton" value={this.state.bucketValue} onClick={this.props.addBucketClick}>Add Bucket</button>
+        <button type='button' id={`!${user}`} className="BucketButton" value={this.state.bucketValue} onClick={this.props.deleteBucketClick}>Delete Bucket</button>
       </div>
     );
   }
