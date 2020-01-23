@@ -4,7 +4,7 @@
   "description": "\"Will be able to add bucket list items and see friends bucket list items\"",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server --open & NODE_ENV=devleopment nodemon server/server.js",
+    "dev": "NODE_ENV=development webpack-dev-server --open & NODE_ENV=development nodemon server/server.js",
     "start": "nodemon server/server.js",
     "build": "NODE_ENV=production webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
