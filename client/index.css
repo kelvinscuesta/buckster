@@ -2,10 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Nunito', sans-serif;;
+  font-family: 'Nunito', sans-serif;
 }
 
 #app_container {
+  padding: 10px;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -13,19 +14,21 @@
   justify-content: center;
 }
 
-#app_container h1 {
+ h1 {
   padding: 10px;
+  color: dodgerblue;
+  text-align: center;
 }
 
 .userBucketContainer {
-  border: 1px solid black;
   
+  border: 1px dotted dodgerblue;
 }
 
 .bucketsContainer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
   padding: 10px;
 }
 

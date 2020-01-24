@@ -135,11 +135,13 @@ class App extends Component {
       }
 
       return (
-        <div id='app_container'>
+        <div>
           <h1>buckster: the bucketlist for friends!</h1>
+        <div id='app_container'>
           { fetchedUsers }
           <input type="text" onChange={this.handleNewUser} />
           <button onClick={this.addUserClick}>Create User</button>
+        </div>
         </div>
         );
     }

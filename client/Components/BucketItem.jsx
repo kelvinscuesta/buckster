@@ -9,9 +9,8 @@ class BucketItem extends Component {
 
     return (
       <div >
-        <p>{this.props.item.description}</p>
+        <p>{this.props.currentItem}</p>
         <ul>
-          {signedOn}
         </ul>
       </div>
 
